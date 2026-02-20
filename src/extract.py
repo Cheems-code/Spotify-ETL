@@ -1,10 +1,13 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import os 
+from dotenv import load_dotenv
 
-# 1. Tus credenciales (En un proyecto real, esto iría oculto en un archivo .env)
-CLIENT_ID = "df1783bcb7ac46b3a850e3f7363dc7c3"
-CLIENT_SECRET = "391f652e93b24375ad311aecebfc7e1a"
-REDIRECT_URI = "http://127.0.0.1:8000/callback"
+load_dotenv(dotenv_path="../config/.env")
+
+CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 
 # 2. Scope: Le decimos a Spotify qué permisos necesitamos (solo leer el historial)
 SCOPE = "user-read-recently-played"
