@@ -1,5 +1,6 @@
 from src.extract import extraer_datos_spotify
 from src.transform import transformar_datos_spotify
+from src.load import cargar_datos_sqlite
 from datetime import datetime
 import os
 
@@ -28,6 +29,9 @@ def ejecutar_pipeline_etl():
         
         # Guardamos el DataFrame de Pandas como un archivo .csv sin el índice numérico
         df_limpio.to_csv(ruta_archivo, index=False)
+        
+        # Cargar los datos en la base de datos SQLite
+        cargar_datos_sqlite(df_limpio)
         
         print(f"\n ¡Pipeline ejecutado con éxito!")
         print(f" Tus datos limpios están guardados en: {ruta_archivo}\n")
