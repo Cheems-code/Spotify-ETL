@@ -33,7 +33,7 @@ def ejecutar_pipeline_etl():
         print(f" Tus datos limpios están guardados en: {ruta_archivo}\n")
         
         # Mostramos una pequeña muestra (las primeras 5 filas)
-        print("🎵 Muestra de tus datos listos para analizar:")
+        print("Muestra de tus datos listos para analizar:")
         print("-" * 50)
         print(df_limpio.head())
         print("-" * 50)

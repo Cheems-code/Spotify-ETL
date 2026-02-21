@@ -12,13 +12,19 @@ REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 # Scope: Le decimos a Spotify qué permisos necesitamos (solo leer el historial)
 def extraer_datos_spotify():
     print("Iniciando extracción desde Spotify...")
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+    ruta_cache = "./config/.cache"
+    
+    auth_manager = SpotifyOAuth(
         client_id=CLIENT_ID,
         client_secret=CLIENT_SECRET,
         redirect_uri=REDIRECT_URI,
-        scope="user-read-recently-played"
-    ))
+        scope="user-read-recently-played",
+        cache_path=ruta_cache, 
+        show_dialog=True     
+    )
 
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    
     # Extracción: Pedimos las últimas 50 canciones que se escucharon en la cuenta
     resultados = sp.current_user_recently_played(limit=50)
 
