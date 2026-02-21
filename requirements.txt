@@ -1,0 +1,11 @@
+# Spotify API
+spotipy==2.23.0
+
+# Data manipulation and analysis
+pandas==2.2.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Database 
+# sqlite3 viene incluido en Python estándar
