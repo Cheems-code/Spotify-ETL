@@ -1,27 +1,30 @@
-import sqlite3
 import pandas as pd
 import os
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
 
-def cargar_datos_sqlite(df, nombre_bd="spotify_etl.db"):
-    print("\n>> Paso 4: Cargando datos en la Base de Datos...")
+def cargar_datos_supabase(df):
+    print("\n>> Cargando datos en la Base de Datos...")
     
-    # 1. Ruta donde se guardará la base de datos (raíz del proyecto)
+    # Ruta donde se guardará la base de datos (raíz del proyecto)
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
     raiz_proyecto = os.path.dirname(directorio_actual)
-    ruta_bd = os.path.join(raiz_proyecto, nombre_bd)
+    ruta_env = os.path.join(raiz_proyecto, "config", ".env")
+
+    # Cargar variables de entorno desde el archivo .env
+    load_dotenv(dotenv_path=ruta_env)
+    db_url = os.getenv("SUPABASE_URL")
+
+    if not db_url:
+        print ("No se encontro SUPABASE_URL en el archivo .env")
     
+    # Cargar el DataFrame a la base de datos utilizando SQLAlchemy
     try:
-        # 2. Creamos la conexión (si el archivo .db no existe, Python lo creará automáticamente)
-        conexion = sqlite3.connect(ruta_bd)
-        
-        # 3. Pandas: envía todo el DataFrame a SQL en una sola línea
-        df.to_sql('historial_escuchas', con=conexion, if_exists='append', index=False)
-        
-        print(f"¡Carga exitosa! Datos guardados en la tabla 'historial_escuchas' dentro de {nombre_bd}")
-        
+        engine = create_engine(db_url)
+
+        df.to_sql('historiall_escuchas',con=engine, if_exists='append', index=False)
+
+        print("Carga exitosa en la Base de Datos.")
+
     except Exception as e:
-        print(f"Error al cargar los datos en la base de datos: {e}")
-        
-    finally:
-        # 4. Cerramos la conexión
-        conexion.close()
+        print(f"Error al cargar datos en la Base de Datos: {e}")
