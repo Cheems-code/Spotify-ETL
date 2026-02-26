@@ -2,10 +2,13 @@
 spotipy==2.23.0
 
 # Data manipulation and analysis
-pandas==2.2.0
+pandas==2.2.1
 
 # Environment variables
-python-dotenv==1.0.0
+python-dotenv==1.0.1
 
-# Database 
-# sqlite3 viene incluido en Python estándar
+# Database interaction
+SQLAlchemy==2.0.28
+
+# PostgreSQL adapter for Python
+psycopg2-binary==2.9.9

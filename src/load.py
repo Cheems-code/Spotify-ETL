@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from sqlalchemy import create_engine
+from sqlalchemy.dialects.postgresql import insert
 from dotenv import load_dotenv
 
 def cargar_datos_supabase(df):
